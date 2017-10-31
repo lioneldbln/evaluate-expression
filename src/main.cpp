@@ -13,19 +13,48 @@
 
 #include <iostream>
 #include <exception>
+#include "expression.h"
+
+bool evaluate(const char* expression, int& result);
 
 int main(int argc, char* argv[])
 {
+  while (1)
+  {
+    std::string expression{};
+    std::cout << "Please enter an expression to evaluate ('q' to quit):" << std::endl; 
+    std::getline(std::cin, expression);
+    int result;
+    if (expression == "q")
+    {
+      break;
+    }
+    else
+    {
+      if (evaluate(expression.c_str(), result))
+      {
+        std::cout << "result: " << result << std::endl;
+      }
+    }
+  }
+  return 0;
+}
+
+bool evaluate(const char* expression, int& result)
+{
   try
   {
-    std::cout << "Hello World!" << std::endl;
-  }    
+    Expression exp{expression};
+    exp.evaluate(result);
+    return true;
+  }
+  catch(std::exception& ex) {
+    std::cerr << ex.what() << std::endl;
+  }
   catch(...)
   {
-    std::cerr << "Unknown exception" << std::endl;
-    std::cerr << "!!FAILURE!!" << std::endl;
+    std::cerr << "Error: Unknown exception" << std::endl;
   }
-
-  return 0;
+  return false;
 }
 
