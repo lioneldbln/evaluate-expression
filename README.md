@@ -3,11 +3,11 @@
 Evaluate an expression represented by a String.
 Ignore whitespace and stop at the first non-valid character.
 Valid tokens are listed in the table below:  
-| Valid tokens |  |
-| ------ | ------ |
-| 0-9 | Only integers are allowed in expressions |
-| ( ) | Nested expressions should be evaluated first |
-| +, -, *, / | Basic operators are addition, subtraction, multiplication and division |
+| Valid tokens |  |  
+| ------ | ------ |  
+| 0-9 | Only integers are allowed in expressions |  
+| ( ) | Nested expressions should be evaluated first |  
+| +, -, *, / | Basic operators are addition, subtraction, multiplication and division |  
 
 ### Prerequisites
 
