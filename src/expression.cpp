@@ -54,11 +54,27 @@ void Expression::evaluate(int& result)
     // current token is a closing bracket
     else if (token == ')')
     {
-      while (!operations.empty() && operations.top() != '(')
+      bool openingBracketFound = false;
+      while (!operations.empty())
       {
-        performOperation();
+        if (operations.top() == '(')
+        {
+          openingBracketFound = true;
+          break;
+        }
+        else
+        {
+          performOperation();
+        }
       }
-      operations.pop();
+      if (openingBracketFound)
+      {
+        operations.pop();
+      }
+      else
+      {
+        throw(ill_formed_expression{ "Error: the expression is ill-formed" });
+      }
     }
     // invalid character
     else

@@ -24,8 +24,12 @@ int main(int argc, char* argv[])
     std::string expression{};
     std::cout << "Please enter an expression to evaluate ('q' to quit):" << std::endl; 
     std::getline(std::cin, expression);
-    int result;
-    if (expression == "q")
+    int result = 0;
+    if (expression.empty())
+    {
+      std::cerr << "Error: no expression found" << std::endl;
+    }
+    else if (expression == "q")
     {
       break;
     }

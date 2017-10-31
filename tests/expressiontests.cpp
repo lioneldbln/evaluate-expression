@@ -115,3 +115,16 @@ TEST(ExpressionTest, EvaluateExpressionWithiDivisionByZero)
   ASSERT_THROW(expression.evaluate(result), std::overflow_error);
 }
 
+TEST(ExpressionTest, EvaluateExpressionWithOnlyOneClosingBracketAtTheEnd)
+{
+	Expression expression("1 + 3)");
+	int result = 0;
+	ASSERT_THROW(expression.evaluate(result), ill_formed_expression);
+}
+
+TEST(ExpressionTest, EvaluateExpressionWithOnlyOneOpeningBracketAtTheBeginning)
+{
+  Expression expression("(1 + 3");
+  int result = 0;
+  ASSERT_THROW(expression.evaluate(result), ill_formed_expression);
+}
