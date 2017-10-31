@@ -15,8 +15,9 @@
 #include <exception>
 #include <sstream>
 #include "exception_exp.h"
+#include "util.h"
 
-void Expression::evaluate(int& result)
+void expreval::Expression::evaluate(int& result)
 {
   if (str_exp.length() == 0)
   {
@@ -33,12 +34,12 @@ void Expression::evaluate(int& result)
       continue;
     }
     // current token is a number
-    else if (isNumberType(token))
+    else if (expreval::isNumberType(token))
     {
       values.push(convertToNumber(i));
     }
     // current token is an operation
-    else if (isOperationType(token))
+    else if (expreval::isOperationType(token))
     {
       while (!operations.empty() && operations.top() != '(' && operations.top() != ')')
       {
@@ -97,7 +98,7 @@ void Expression::evaluate(int& result)
   result = values.top();
 }
 
-void Expression::performOperation()
+void expreval::Expression::performOperation()
 {
   if (values.size() < 2 || operations.empty())
     throw(ill_formed_expression{"Error: the expression is ill-formed"});
@@ -118,7 +119,7 @@ void Expression::performOperation()
   values.push(result);
 }
 
-void Expression::doArithmetic(int lhs, int rhs, char op, int& result)
+void expreval::Expression::doArithmetic(int lhs, int rhs, char op, int& result)
 {
   if (op == '+')
   {
@@ -145,23 +146,7 @@ void Expression::doArithmetic(int lhs, int rhs, char op, int& result)
   }
 }
 
-bool Expression::isNumberType(char c)
-{
-  if (c >= '0' && c <= '9')
-    return true;
-
-  return false;
-}
-
-bool Expression::isOperationType(char c)
-{
-  if (c == '+' || c == '-' || c == '*' || c == '/')
-    return true;
-
-  return false;
-}
-
-int Expression::convertToNumber(size_t& i)
+int expreval::Expression::convertToNumber(size_t& i)
 {
   std::string num{str_exp.at(i++)};
   while (i < str_exp.length() && isNumberType(str_exp.at(i)))

@@ -48,7 +48,7 @@ bool evaluate(const char* expression, int& result)
 {
   try
   {
-    Expression exp{expression};
+    expreval::Expression exp{expression};
     exp.evaluate(result);
     return true;
   }
