@@ -48,12 +48,12 @@ bool evaluate(const char* expression, int& result)
 {
   try
   {
-    expreval::Expression exp{expression};
+    expreval::Expression<int> exp{expression};
     exp.evaluate(result);
     return true;
   }
   catch(std::exception& ex) {
-    std::cerr << ex.what() << std::endl;
+    std::cerr << "Error: " << ex.what() << std::endl;
   }
   catch(...)
   {

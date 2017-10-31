@@ -18,7 +18,7 @@
 
 TEST(ExpressionTest, EvaluateOneOperationWithOneDigitNumbers)
 {
-  expreval::Expression expression("3 + 1");
+  expreval::Expression<int> expression("3 + 1");
   int result = 0;
   expression.evaluate(result);
   ASSERT_THAT(result, testing::Eq(4));
@@ -26,7 +26,7 @@ TEST(ExpressionTest, EvaluateOneOperationWithOneDigitNumbers)
 
 TEST(ExpressionTest, EvaluateTwoOperationsWithOneDigitNumbers)
 {
-  expreval::Expression expression("3 + 1 * 4");
+  expreval::Expression<int> expression("3 + 1 * 4");
   int result = 0;
   expression.evaluate(result);
   ASSERT_THAT(result, testing::Eq(16));
@@ -34,7 +34,7 @@ TEST(ExpressionTest, EvaluateTwoOperationsWithOneDigitNumbers)
 
 TEST(ExpressionTest, EvaluateTwoOperationsWithMoreThanOneDigitsNumbers)
 {
-  expreval::Expression expression("11 * 100 + 25");
+  expreval::Expression<int> expression("11 * 100 + 25");
   int result = 0;
   expression.evaluate(result);
   ASSERT_THAT(result, testing::Eq(1125));
@@ -42,7 +42,7 @@ TEST(ExpressionTest, EvaluateTwoOperationsWithMoreThanOneDigitsNumbers)
 
 TEST(ExpressionTest, EvaluateOperationsGivingNegativeResult)
 {
-  expreval::Expression expression("4 - 10 / 2");
+  expreval::Expression<int> expression("4 - 10 / 2");
   int result = 0;
   expression.evaluate(result);
   ASSERT_THAT(result, testing::Eq(-3));
@@ -50,7 +50,7 @@ TEST(ExpressionTest, EvaluateOperationsGivingNegativeResult)
 
 TEST(ExpressionTest, EvaluateOneBracketCoupleInFirstPosition)
 {
-  expreval::Expression expression("(10 + 30) * 21");
+  expreval::Expression<int> expression("(10 + 30) * 21");
   int result = 0;
   expression.evaluate(result);
   ASSERT_THAT(result, testing::Eq(840));
@@ -58,7 +58,7 @@ TEST(ExpressionTest, EvaluateOneBracketCoupleInFirstPosition)
 
 TEST(ExpressionTest, EvaluateOneBracketCoupleInLastPosition)
 {
-  expreval::Expression expression("6 + (4 / 2)");
+  expreval::Expression<int> expression("6 + (4 / 2)");
   int result = 0;
   expression.evaluate(result);
   ASSERT_THAT(result, testing::Eq(8));
@@ -66,7 +66,7 @@ TEST(ExpressionTest, EvaluateOneBracketCoupleInLastPosition)
 
 TEST(ExpressionTest, EvaluateMutipleBracketsCouple)
 {
-  expreval::Expression expression("(1 + 2) * (5 + 10)");
+  expreval::Expression<int> expression("(1 + 2) * (5 + 10)");
   int result = 0;
   expression.evaluate(result);
   ASSERT_THAT(result, testing::Eq(45));
@@ -74,7 +74,7 @@ TEST(ExpressionTest, EvaluateMutipleBracketsCouple)
 
 TEST(ExpressionTest, EvaluateNestedBracketsCouple)
 {
-  expreval::Expression expression("2 + ((1 + 2) * (5 + 10))");
+  expreval::Expression<int> expression("2 + ((1 + 2) * (5 + 10))");
   int result = 0;
   expression.evaluate(result);
   ASSERT_THAT(result, testing::Eq(47));
@@ -82,50 +82,58 @@ TEST(ExpressionTest, EvaluateNestedBracketsCouple)
 
 TEST(ExpressionTest, EvaluateExpressionWithMissingBracket)
 {
-  expreval::Expression expression("(1 + (12 * 2)");
+  expreval::Expression<int> expression("(1 + (12 * 2)");
   int result = 0;
   ASSERT_THROW(expression.evaluate(result), ill_formed_expression);
 }
 
 TEST(ExpressionTest, EvaluateExpressionWithNumberWithoutOperatorOnLeft)
 {
-  expreval::Expression expression("2 + ((1 + 2) * (5 + 10))20");
+  expreval::Expression<int> expression("2 + ((1 + 2) * (5 + 10))20");
   int result = 0;
   ASSERT_THROW(expression.evaluate(result), ill_formed_expression);
 }
 
 TEST(ExpressionTest, EvaluateExpressionWithNumberWithoutOperatorOnRight)
 {
-  expreval::Expression expression("3 (3 / 1)");
+  expreval::Expression<int> expression("3 (3 / 1)");
   int result = 0;
   ASSERT_THROW(expression.evaluate(result), ill_formed_expression);
 }
 
 TEST(ExpressionTest, EvaluateExpressionWithTwoConsecutiveOperators)
 {
-  expreval::Expression expression("3 + / 1");
+  expreval::Expression<int> expression("3 + / 1");
   int result = 0;
   ASSERT_THROW(expression.evaluate(result), ill_formed_expression);
 }
 
 TEST(ExpressionTest, EvaluateExpressionWithiDivisionByZero)
 {
-  expreval::Expression expression("4 - 3 / 0");
+  expreval::Expression<int> expression("4 - 3 / 0");
   int result = 0;
   ASSERT_THROW(expression.evaluate(result), std::overflow_error);
 }
 
 TEST(ExpressionTest, EvaluateExpressionWithOnlyOneClosingBracketAtTheEnd)
 {
-	expreval::Expression expression("1 + 3)");
+	expreval::Expression<int> expression("1 + 3)");
 	int result = 0;
 	ASSERT_THROW(expression.evaluate(result), ill_formed_expression);
 }
 
 TEST(ExpressionTest, EvaluateExpressionWithOnlyOneOpeningBracketAtTheBeginning)
 {
-  expreval::Expression expression("(1 + 3");
+  expreval::Expression<int> expression("(1 + 3");
   int result = 0;
   ASSERT_THROW(expression.evaluate(result), ill_formed_expression);
+}
+
+TEST(ExpressionTest, EvaluateExpressionGivingFloatResult)
+{
+  expreval::Expression<float> expression("5 / 2");
+  float result = 0;
+  expression.evaluate(result);
+  ASSERT_THAT(result, testing::Eq(2.5));
 }
 
