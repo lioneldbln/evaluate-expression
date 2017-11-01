@@ -1,18 +1,18 @@
-# evaluate-expression
+## Synopsis
 
-Evaluate an expression represented by a String.  
+`evaluate-expression` is a command application to evaluate an expression.  
 Ignore whitespace and stop at the first non-valid character.  
 Valid tokens are listed in the table below:  
 0-9  :  Only integers are allowed in expressions  
 ( )  :  Nested expressions should be evaluated first  
 +, -, *, /  :  Basic operators are addition, subtraction, multiplication and division  
 
-### Prerequisites
+## Prerequisites
 
 The compiler needs to support C++11 features  
 http://en.cppreference.com/w/cpp/compiler_support
 
-### Build Instructions on Windows:
+## Build Instructions on Windows:
 
 ```
     $ git clone https://github.com/lioneldbln/evaluate-expression.git
@@ -22,9 +22,9 @@ http://en.cppreference.com/w/cpp/compiler_support
   Running CMake for Windows and choose your configuration  
   https://cmake.org/runningcmake/
 
-  Open the solution evalexp.sln and Build Solution
+  Open the solution `evalexp.sln` from `build\` folder and then build solution
 
-### Build Instructions on Linux:
+## Build Instructions on Linux:
 
 ```
     $ git clone https://github.com/lioneldbln/evaluate-expression.git
@@ -35,10 +35,10 @@ http://en.cppreference.com/w/cpp/compiler_support
 ```
 ## Running the tests
 
-Unit tests are performed with googletest
+Unit tests are performed with `googletest`  
     
   **On Windows:**  
-  Build the project evalexptests and Start
+  Start `evalexptests` project  
   
   **On Linux:**
 ```
@@ -47,7 +47,7 @@ Unit tests are performed with googletest
 
 ## How to use
 
-Launch evalexp and follow the instructions
+Launch `evalexp` executable and follow the instructions
 
 ## Author
 
