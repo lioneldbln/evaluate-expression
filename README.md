@@ -30,6 +30,7 @@ http://en.cppreference.com/w/cpp/compiler_support
     $ git clone https://github.com/lioneldbln/evaluate-expression.git
     $ cd evaluate-expression
     $ mkdir build
+    $ cd build
     $ cmake ..
     $ make
 ```
