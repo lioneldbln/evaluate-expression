@@ -1,5 +1,5 @@
 /**
-   File: expression.cpp
+   File: expressiontests.cpp
   
    Author: lionel CHATAIN
    E-Mail: lionelchatain@gmail.com
@@ -127,6 +127,13 @@ TEST(ExpressionTest, EvaluateExpressionWithOnlyOneOpeningBracketAtTheBeginning)
   expreval::Expression<int> expression("(1 + 3");
   int result = 0;
   ASSERT_THROW(expression.evaluate(result), ill_formed_expression);
+}
+
+TEST(ExpressionTest, EvaluateExpressionWithInvalidCharacter)
+{
+  expreval::Expression<int> expression("(1 + 3) ^ 8");
+  int result = 0;
+  ASSERT_THROW(expression.evaluate(result), non_valid_character);
 }
 
 TEST(ExpressionTest, EvaluateExpressionGivingFloatResult)
