@@ -17,7 +17,7 @@
 
 bool evaluate(const char* expression, int& result);
 
-int main(int argc, char* argv[])
+int main(int, char*[])
 {
   while (1)
   {
