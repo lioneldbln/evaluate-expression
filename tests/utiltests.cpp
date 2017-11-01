@@ -53,3 +53,4 @@ TEST(UtilTest, charCaretIsNotOperator)
 {
   ASSERT_THAT(expreval::isCharacterOperator('^'), testing::Eq(false));
 }
+

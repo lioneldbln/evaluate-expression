@@ -19,9 +19,11 @@
 #include "exception_exp.h"
 #include "util.h"
 
-namespace expreval {
+namespace expreval
+{
   template<typename T>
-  class Expression {
+  class Expression
+  {
   private:
     std::string str_exp;
     std::stack<T> values;
@@ -170,9 +172,7 @@ void expreval::Expression<T>::doArithmetic(T lhs, T rhs, char op, T& result)
   }
   else
   {
-    std::stringstream ss{};
-    ss << "the character '" << op << "'" << " is invalid";
-    throw(non_valid_character{ss.str()});
+    throw(ill_formed_expression{"the expression is ill-formed"});
   }
 }
 

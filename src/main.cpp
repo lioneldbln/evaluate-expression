@@ -24,7 +24,6 @@ int main(int, char*[])
     std::string expression{};
     std::cout << "Please enter an expression to evaluate ('q' to quit):" << std::endl; 
     std::getline(std::cin, expression);
-    int result = 0;
     if (expression.empty())
     {
       std::cerr << "Error: no expression found" << std::endl;
@@ -35,6 +34,7 @@ int main(int, char*[])
     }
     else
     {
+      int result = 0;
       if (evaluate(expression.c_str(), result))
       {
         std::cout << "result: " << result << std::endl;
@@ -52,7 +52,8 @@ bool evaluate(const char* expression, int& result)
     exp.evaluate(result);
     return true;
   }
-  catch(std::exception& ex) {
+  catch(std::exception& ex)
+  {
     std::cerr << "Error: " << ex.what() << std::endl;
   }
   catch(...)

@@ -14,7 +14,8 @@
 
 #include <exception>
 
-class non_valid_character : public std::exception {
+class non_valid_character : public std::exception
+{
 private:
   std::string message;
 
@@ -29,7 +30,8 @@ public:
   const char* what() const noexcept override { return message.c_str(); }
 };
 
-class missing_bracket : public std::exception {
+class missing_bracket : public std::exception
+{
 private:
   std::string message;
 
@@ -44,7 +46,8 @@ public:
   const char* what() const noexcept override { return message.c_str(); }
 };
 
-class ill_formed_expression : public std::exception {
+class ill_formed_expression : public std::exception
+{
 private:
   std::string message;
 
