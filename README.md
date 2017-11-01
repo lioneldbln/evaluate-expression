@@ -1,6 +1,6 @@
 ## Synopsis
 
-`evaluate-expression` is a command application to evaluate an expression.  
+`evaluate-expression` is a command-line application to evaluate an expression.  
 Ignore whitespace and stop at the first non-valid character.  
 Valid tokens are listed in the table below:  
 0-9  :  Only integers are allowed in expressions  
