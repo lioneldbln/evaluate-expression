@@ -12,7 +12,7 @@
 
 #include "util.h"
 
-bool expreval::isNumberType(char c)
+bool expreval::isCharacterNumber(char c)
 {
   if (c >= '0' && c <= '9')
     return true;
@@ -20,7 +20,7 @@ bool expreval::isNumberType(char c)
   return false;
 }
 
-bool expreval::isOperationType(char c)
+bool expreval::isCharacterOperator(char c)
 {
   if (c == '+' || c == '-' || c == '*' || c == '/')
     return true;

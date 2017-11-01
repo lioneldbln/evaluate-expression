@@ -25,14 +25,14 @@ namespace expreval {
   private:
     std::string str_exp;
     std::stack<T> values;
-    std::stack<char> operations;
+    std::stack<char> operators;
     
     void performOperation();
     void doArithmetic(T, T, char, T&);
     T convertToNumber(size_t&);
 
   public:
-    Expression(const char* str_exp) : str_exp{str_exp}, values{}, operations{} {}
+    Expression(const char* str_exp) : str_exp{str_exp}, values{}, operators{} {}
     ~Expression() = default;
     Expression(const Expression&) = default;
     Expression& operator=(const Expression&) = default;
@@ -61,31 +61,31 @@ void expreval::Expression<T>::evaluate(T& result)
       continue;
     }
     // current token is a number
-    else if (expreval::isNumberType(token))
+    else if (expreval::isCharacterNumber(token))
     {
       values.push(convertToNumber(i));
     }
-    // current token is an operation
-    else if (expreval::isOperationType(token))
+    // current token is an operator
+    else if (expreval::isCharacterOperator(token))
     {
-      while (!operations.empty() && operations.top() != '(' && operations.top() != ')')
+      while (!operators.empty() && operators.top() != '(' && operators.top() != ')')
       {
           performOperation();
       }
-      operations.push(token);
+      operators.push(token);
     }
     // current token is an opening bracket
     else if (token == '(')
     {
-      operations.push(token);
+      operators.push(token);
     }
     // current token is a closing bracket
     else if (token == ')')
     {
       bool openingBracketFound = false;
-      while (!operations.empty())
+      while (!operators.empty())
       {
-        if (operations.top() == '(')
+        if (operators.top() == '(')
         {
           openingBracketFound = true;
           break;
@@ -97,7 +97,7 @@ void expreval::Expression<T>::evaluate(T& result)
       }
       if (openingBracketFound)
       {
-        operations.pop();
+        operators.pop();
       }
       else
       {
@@ -114,7 +114,7 @@ void expreval::Expression<T>::evaluate(T& result)
   }
   
   // perform operations to remaining values
-  while (!operations.empty()) {
+  while (!operators.empty()) {
     performOperation();
   }
 
@@ -128,7 +128,7 @@ void expreval::Expression<T>::evaluate(T& result)
 template<typename T>
 void expreval::Expression<T>::performOperation()
 {
-  if (values.size() < 2 || operations.empty())
+  if (values.size() < 2 || operators.empty())
     throw(ill_formed_expression{"the expression is ill-formed"});
     
   T rhs = values.top();
@@ -137,8 +137,8 @@ void expreval::Expression<T>::performOperation()
   T lhs = values.top();
   values.pop();
 
-  char op = operations.top();
-  operations.pop();
+  char op = operators.top();
+  operators.pop();
   
   T result = 0;
 
@@ -180,7 +180,7 @@ template<typename T>
 T expreval::Expression<T>::convertToNumber(size_t& i)
 {
   T num{};
-  while (i < str_exp.length() && isNumberType(str_exp[i]))
+  while (i < str_exp.length() && isCharacterNumber(str_exp[i]))
   {
     num = num*10+(str_exp[i++]-'0');
   }

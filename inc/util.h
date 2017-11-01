@@ -13,8 +13,8 @@
 #pragma once
 
 namespace expreval {
-  bool isNumberType(char);
+  bool isCharacterNumber(char);
 
-  bool isOperationType(char);
+  bool isCharacterOperator(char);
 }
 
